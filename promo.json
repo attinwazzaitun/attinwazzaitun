@@ -2,5 +2,16 @@
   "validPromoCodes": ["MARU12", "TAQWA09", "NAJMI8", "MUS4", "BAIz"],
   "appliedDiscountRate": 0,
   "activePromoName": "",
-  "pdfLink": "https://drive.google.com/file/d/1la5zbxlH5FfHJvjOuZCFlE2_ubWXjoCT/view?usp=drivesdk"
+  "pdfLink": "https://drive.google.com/file/d/1la5zbxlH5FfHJvjOuZCFlE2_ubWXjoCT/view?usp=drivesdk",
+  "prices": {
+    "cairo": 95,
+    "fayyoum": 105,
+    "alexandria": 115,
+    "airportTransferBase": 175,
+    "airportTransferGroup": 470,
+    "airportTransferDiscount": 70,
+    "noLuggageExtra": 30,
+    "groupExtraPerDay": 12,
+    "gizaExtraPerDay": 35
+  }
 }
