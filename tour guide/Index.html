@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tempahan Pemandu Pelancong Peribadi Mesir (DIY)</title>
+    <style>
+        /* PDF Link Button */
+        .btn-pdf {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 0.9rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: background-color 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(217, 119, 6, 0.2);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-pdf:hover {
+            background-color: var(--primary-hover);
+        }
+
+        :root {
+            --primary-color: #d97706;
+            --primary-hover: #b45309;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-light: #64748b;
+            --border-color: #cbd5e1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 1rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            overflow: hidden;
+        }
+
+        /* Banner & Header */
+        .banner {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background-color: #e2e8f0;
+        }
+
+        .header-content {
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .header-content h1 {
+            font-size: 1.5rem;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .header-content p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Form Body */
+        .form-body {
+            padding: 1.5rem;
+        }
+
+        /* Rules Notice */
+        .notice-box {
+            background-color: #fef3c7;
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .notice-box h3 {
+            color: #92400e;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .notice-box ul {
+            margin-left: 1.2rem;
+            color: #78350f;
+        }
+
+        .notice-box li {
+            margin-bottom: 0.3rem;
+        }
+
+        /* Input Groups */
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 640px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="time"],
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: #fff;
+            color: var(--text-color);
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.15);
+        }
+
+        /* Checkbox styling */
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background-color: #f1f5f9;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+            cursor: pointer;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 1.2rem;
+            height: 1.2rem;
+            accent-color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        /* Dynamic Destinations Container */
+        #dailyDestinationsContainer {
+            margin-top: 1.5rem;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 1rem;
+        }
+
+        .day-card {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .day-header {
+            font-weight: 600;
+            color: var(--primary-hover);
+            font-size: 0.95rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .day-content {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        @media (max-width: 500px) {
+            .day-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .dest-thumbnail {
+            width: 100px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background-color: #e2e8f0;
+        }
+
+        @media (max-width: 500px) {
+            .dest-thumbnail {
+                width: 100%;
+                height: 120px;
+            }
+        }
+
+        /* Summary Box */
+        .summary-box {
+            background-color: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-top: 1.5rem;
+        }
+
+        .summary-box h3 {
+            color: #92400e;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid #fef3c7;
+            padding-bottom: 0.5rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #fde68a;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: #b45309;
+        }
+
+        /* WhatsApp Button Main */
+        .btn-wa {
+            display: block;
+            width: 100%;
+            background-color: #25d366;
+            color: white;
+            text-align: center;
+            padding: 0.9rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 1.5rem;
+            transition: background-color 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(37, 211, 102, 0.2);
+        }
+
+        .btn-wa:hover {
+            background-color: #22c55e;
+        }
+
+        /* Custom Action Buttons (Pelbagai Warna & Ringkas) */
+        .btn-action {
+            display: block;
+            width: 100%;
+            color: white;
+            text-align: center;
+            padding: 0.9rem 1rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.05);
+        }
+
+        /* 1. Butang Sinai (Warna Biru Tenang) */
+        .btn-sinai {
+            background-color: #0284c7;
+        }
+
+        /* 2. Butang Affiliate (Warna Kuning Emas / Jingga - Menonjol & Eksklusif) */
+        .btn-affiliate {
+            background-color: #d97706;
+        }
+
+        /* 3. Butang Tukar Duit (Warna Hijau WhatsApp Standard) */
+        .btn-money {
+            background-color: #25d366;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Banner -->
+        <h1 style="text-align: center; padding-top: 1.5rem;">MESIR TOUR GUIDE</h1> <br>
+          <img src="gambar.png" alt="Banner Mesir" class="banner" onerror="this.src='https://images.unsplash.com/photo-1568322445389-f64ac2525645?q=80&w=800&auto=format&fit=crop'">
+        <div class="header-content">
+            <p>Rancang jadual perjalanan DIY anda dengan mudah dan telus.</p>
+        </div>
+
+        <div class="form-body">
+            <!-- Butang Baca PDF -->
+            <a href="https://drive.google.com/file/d/1TiLrFv21-5W5Yqgz5Gkzan8KgXDdnBmd/view?usp=drivesdk" target="_blank" class="btn-pdf">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                Baca Terma & Syarat PDF
+            </a>
+
+            <form id="bookingForm">
+                <!-- Nama Penuh -->
+                <div class="form-group">
+                    <label for="customerName">Nama Penuh</label>
+                    <input type="text" id="customerName" placeholder="Masukkan nama penuh anda" required>
+                </div>
+
+                <!-- Saiz Kumpulan -->
+                <div class="form-group">
+                    <label for="groupSize">Saiz Kumpulan (Bilangan Pax)</label>
+                    <select id="groupSize" onchange="calculateTotal()">
+                        <option value="1">1 Orang (Harga Biasa)</option>
+                        <option value="2">2 Orang (Harga Biasa)</option>
+                        <option value="3">3 Orang (Harga Biasa)</option>
+                        <option value="4">4 Orang (+RM 12/hari untuk group)</option>
+                        <option value="5">5 Orang (+RM 12/hari untuk group)</option>
+                    </select>
+                </div>
+
+                <!-- Julat Tarikh -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="startDate">Tarikh Mula</label>
+                        <input type="date" id="startDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">Tarikh Tamat</label>
+                        <input type="date" id="endDate" required>
+                    </div>
+                </div>
+
+                <!-- Masa Lawatan -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="startTime">Masa Mula</label>
+                        <input type="time" id="startTime" value="09:00" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endTime">Masa Tamat</label>
+                        <input type="time" id="endTime" value="17:00" required>
+                    </div>
+                </div>
+
+                <!-- Kotak Semak Penginapan Giza -->
+                <div class="form-group">
+                    <label>Lokasi Penginapan</label>
+                    <label class="checkbox-group">
+                        <input type="checkbox" id="gizaCheck" onchange="calculateTotal()">
+                        <span>Penginapan saya terletak di kawasan Giza <strong>(RM 35 / hari)</strong></span>
+                    </label>
+                </div>
+
+                <!-- Pilihan Destinasi Harian Dinamik -->
+                <div id="dailyDestinationsContainer">
+                    <p style="color: #6b7280; text-align: center; font-size: 0.9rem;">Sila pilih Tarikh Mula dan Tarikh Tamat di atas untuk menjana pilihan destinasi harian.</p>
+                </div>
+                
+                <!-- Bahagian Kod Promo -->
+                <div class="form-group" style="background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px dashed #cbd5e1;">
+                    <label for="promoCodeInput" style="font-weight: bold; margin-bottom: 5px; display: block;">Ada Kod Promo?</label>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" id="promoCodeInput" placeholder="Masukkan kod promo" style="flex: 1; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                        <button type="button" onclick="applyPromoCode()" style="padding: 8px 16px; background: #2563eb; color: white; border: none; border-radius: 4px; cursor: pointer;">Guna</button>
+                    </div>
+                    <small id="promoMessage" style="display: block; margin-top: 5px; font-weight: 500;"></small>
+                </div>
+
+                <!-- Ringkasan Kos & Pembayaran -->
+                <div class="summary-box">
+                    <h3>Ringkasan Kos Pakej</h3>
+                    <div class="summary-row">
+                        <span>Tempoh Lawatan:</span>
+                        <span id="sumDuration">0 Hari</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Jumlah Upah Destinasi:</span>
+                        <span id="sumDestPrice">RM 0</span>
+                    </div>
+                    <div class="summary-row" id="sumGroupRow" style="display: none;">
+                        <span>Group (4-5 Pax):</span>
+                        <span id="sumGroupPrice">RM 0</span>
+                    </div>
+                    <div class="summary-row" id="sumGizaRow" style="display: none;">
+                        <span>Caj Tambahan Giza:</span>
+                        <span id="sumGizaPrice">RM 0</span>
+                    </div>
+                    <div class="summary-row" id="sumNoLuggageRow" style="display: none;">
+                        <span>Airport Tanpa Bagasi:</span>
+                        <span id="sumNoLuggagePrice">RM 0</span>
+                    </div>
+                    <!-- Baris Diskaun Promo -->
+                    <div class="summary-row" id="sumPromoRow" style="display: none; color: #16a34a; font-weight: bold;">
+                        <span>Diskaun Promo (15%):</span>
+                        <span id="sumPromoPrice">RM 0</span>
+                    </div>
+                    <div class="summary-total">
+                        <span>Total:</span>
+                        <span id="sumTotal">RM 0</span>
+                    </div>
+                </div>
+
+                <!-- Butang WhatsApp -->
+                <a href="#" id="whatsappBtn" class="btn-wa" onclick="sendWhatsApp(event)">
+                    Tempah Melalui WhatsApp Sekarang
+                </a>
+            </form>
+
+            <br>
+
+            <!-- Tiga Butang Pautan Bawah (Ringkas & Warna Berbeza) -->
+            <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.5rem;">
+                
+                <!-- Butang Pakej Sinai (Biru) -->
+                <a href="https://wa.me/601156758804?text=Assalamualaikum.%20Saya%20berminat%20dengan%20pakej%20ke%20Sinai.%20Boleh%20bantu%20berikan%20maklumat%20lanjut%3F" target="_blank" class="btn-action btn-sinai">
+                    🌴 Pertanyaan Pakej Pelancongan Sinai
+                </a>
+
+                <!-- Butang Affiliate (Jingga/Emas) -->
+                <a href="https://wa.me/601156758804?text=Assalamualaikum.%20Saya%20teruja%20nak%20sertai%20Program%20Affiliate%20Tour%20Guide%20(Yuran%20RM10%20%2B%20Komisen%205%25).%20Tolong%20tunjukkan%20jalan%20untuk%20mula!" target="_blank" class="btn-action btn-affiliate">
+                    🚀 Sertai Program Affiliate (Komisen 5%)
+                </a>
+
+                <!-- Butang Penukaran Duit (Hijau) -->
+                <a href="https://wa.me/601156758804?text=Assalamualaikum.%20Saya%20ingin%20menguruskan%20pertukaran%20wang%20untuk%20perjalanan%20ke%20Mesir.%20Boleh%20bantu%20berikan%20kadar%20terkini%3F" target="_blank" class="btn-action btn-money">
+                    💱 Bantuan Pertukaran Wang <br>(MYR ke EGP)
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+
+<script>
+  const destImages = {
+    "cairo": "gambar1.png", 
+    "fayyoum": "gambar2.png", 
+    "alexandria": "gambar3.png", 
+    "airport_transfer_1_3": "gambar7.png",
+    "airport_transfer_4_5": "gambar8.png",
+    "airport_cairo": "gambar4.png",
+    "airport_fayyoum": "gambar5.png",
+    "airport_alex": "gambar6.png",
+    "default": "https://images.unsplash.com/photo-1539650116574-8efeb43e2750?q=80&w=200&auto=format&fit=crop"
+};
+
+const validPromoCodes = ["MARU12", "TAQWA09", "NAJMI8", "MUS4", "BAIz"];
+let appliedDiscountRate = 0; 
+let activePromoName = "";
+
+const startDateInput = document.getElementById('startDate');
+const endDateInput = document.getElementById('endDate');
+const container = document.getElementById('dailyDestinationsContainer');
+const gizaCheck = document.getElementById('gizaCheck');
+const groupSizeSelect = document.getElementById('groupSize');
+
+startDateInput.addEventListener('change', function() {
+    endDateInput.min = this.value;
+    generateDays();
+});
+
+endDateInput.addEventListener('change', function() {
+    generateDays();
+});
+
+groupSizeSelect.addEventListener('change', function() {
+    updateAllThumbnailsAndPrices();
+    calculateTotal();
+});
+
+function applyPromoCode() {
+    const inputCode = document.getElementById('promoCodeInput').value.trim().toUpperCase();
+    const msgElement = document.getElementById('promoMessage');
+
+    if (!inputCode) {
+        appliedDiscountRate = 0;
+        activePromoName = "";
+        msgElement.style.color = "#dc2626";
+        msgElement.innerText = "Sila masukkan kod promo terlebih dahulu.";
+        calculateTotal();
+        return;
+    }
+
+    if (validPromoCodes.includes(inputCode)) {
+        appliedDiscountRate = 0.15; 
+        activePromoName = inputCode;
+        msgElement.style.color = "#16a34a";
+        msgElement.innerText = `Kod promo "${inputCode}" berjaya digunakan! Diskaun 15% diberikan.`;
+    } else {
+        appliedDiscountRate = 0;
+        activePromoName = "";
+        msgElement.style.color = "#dc2626";
+        msgElement.innerText = "Kod promo tidak sah atau sudah tamat tempoh.";
+    }
+    calculateTotal();
+}
+
+function generateDays() {
+    const startVal = startDateInput.value;
+    const endVal = endDateInput.value;
+
+    if (!startVal || !endVal) return;
+
+    const start = new Date(startVal);
+    const end = new Date(endVal);
+
+    if (end < start) {
+        alert("Tarikh tamat tidak boleh awal dari tarikh mula.");
+        endDateInput.value = "";
+        container.innerHTML = '<p style="color: #6b7280; text-align: center; font-size: 0.9rem;">Sila pilih julat tarikh yang sah.</p>';
+        calculateTotal();
+        return;
+    }
+
+    const diffTime = Math.abs(end - start);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+    if (diffDays > 30) {
+        alert("Maksimum tempahan adalah 30 hari sahaja.");
+        endDateInput.value = "";
+        return;
+    }
+
+    container.innerHTML = '';
+
+    for (let i = 0; i < diffDays; i++) {
+        let currentDate = new Date(start);
+        currentDate.setDate(start.getDate() + i);
+        let day = String(currentDate.getDate()).padStart(2, '0');
+        let month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        let year = currentDate.getFullYear();
+        let dateString = `${day}-${month}-${year}`;
+
+        let dayCard = document.createElement('div');
+        dayCard.className = 'day-card';
+        dayCard.innerHTML = `
+            <div class="day-header">
+                <span>Hari ke-${i + 1} (${dateString})</span>
+            </div>
+            <div class="day-content" style="flex-direction: column; gap: 10px;">
+                <img src="${destImages['cairo']}" alt="Thumbnail Destinasi" class="dest-thumbnail" id="thumb_${i}" style="width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 6px;">
+                
+                <div style="width: 100%;">
+                    <label style="font-size: 0.85rem; margin-bottom: 0.25rem; display: block;">Pilih Destinasi Harian:</label>
+                    <select class="dest-select" data-day="${i}" onchange="updateThumbnail(this, ${i})">
+                        <option value="cairo" data-price="95">Kaherah - RM 95</option>
+                        <option value="fayyoum" data-price="105">Fayyoum - RM 105</option>
+                        <option value="alexandria" data-price="115">Alexandria - RM 115</option>
+                        <option value="airport_transfer" data-price="175" id="opt_airport_${i}">Pakej Airport Transfer Sahaja - RM 175</option>
+                    </select>
+                    
+                    <div style="margin-top: 0.5rem;" id="extraAirportDiv_${i}">
+                        <label style="font-size: 0.8rem; display: flex; align-items: center; gap: 5px; cursor: pointer; color: #d97706; margin-bottom: 4px;">
+                            <input type="checkbox" class="extra-airport-check" data-day="${i}" onchange="calculateTotal(); updateThumbnailByCheckbox(${i});">
+                            <span>Pilih untuk tambah Airport Transfer (kos termasuk transport ke/dari airport sahaja) <strong id="extraAirportPriceText_${i}">+RM 70</strong></span>
+                        </label>
+                    </div>
+
+                    <div style="margin-top: 0.3rem;" id="noLuggageDiv_${i}">
+                        <label style="font-size: 0.8rem; display: flex; align-items: center; gap: 5px; cursor: pointer; color: #0284c7;">
+                            <input type="checkbox" class="no-luggage-check" data-day="${i}" onchange="calculateTotal()">
+                            <span>Pengambilan di airport tanpa bagasi <strong>(+RM 30 - tak termasuk transport)</strong></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        container.appendChild(dayCard);
+    }
+
+    updateAllThumbnailsAndPrices();
+    calculateTotal();
+}
+
+function updateAllThumbnailsAndPrices() {
+    const groupSize = parseInt(groupSizeSelect.value) || 1;
+    const selects = document.querySelectorAll('.dest-select');
+
+    selects.forEach((sel, index) => {
+        const airportOpt = document.getElementById(`opt_airport_${index}`);
+        const priceText = document.getElementById(`extraAirportPriceText_${index}`);
+        let standardAirportPrice = (groupSize >= 4) ? 470 : 175;
+        // Diturunkan sebanyak RM 70 untuk pakej biasa + airport
+        let discountedAirportPrice = standardAirportPrice - 70;
+
+        if (airportOpt) {
+            airportOpt.setAttribute('data-price', standardAirportPrice);
+            airportOpt.text = `Pakej Airport Transfer Sahaja - RM ${standardAirportPrice}`;
+        }
+        if (priceText) {
+            priceText.innerText = `+RM ${discountedAirportPrice}`;
+        }
+        updateThumbnail(sel, index);
+    });
+}
+
+function updateThumbnail(selectElement, dayIndex) {
+    const val = selectElement.value;
+    const thumbImg = document.getElementById(`thumb_${dayIndex}`);
+    const groupSize = parseInt(groupSizeSelect.value) || 1;
+    const extraCheck = document.querySelector(`.extra-airport-check[data-day="${dayIndex}"]`);
+    const extraDiv = document.getElementById(`extraAirportDiv_${dayIndex}`);
+    const noLuggageDiv = document.getElementById(`noLuggageDiv_${dayIndex}`);
+    const noLuggageCheck = document.querySelector(`.no-luggage-check[data-day="${dayIndex}"]`);
+
+    if (val === "airport_transfer") {
+        if(extraDiv) extraDiv.style.display = "none"; 
+        if(extraCheck) extraCheck.checked = false;
+        
+        if(noLuggageDiv) noLuggageDiv.style.display = "none";
+        if(noLuggageCheck) noLuggageCheck.checked = false;
+        
+        if (groupSize >= 4) {
+            thumbImg.src = destImages['airport_transfer_4_5'];
+        } else {
+            thumbImg.src = destImages['airport_transfer_1_3'];
+        }
+    } else {
+        if(extraDiv) extraDiv.style.display = "block";
+        if(noLuggageDiv) noLuggageDiv.style.display = "block";
+
+        if (extraCheck && extraCheck.checked) {
+            setCombinedImage(val, thumbImg);
+        } else {
+            thumbImg.src = destImages[val] || destImages['default'];
+        }
+    }
+    calculateTotal();
+}
+
+function updateThumbnailByCheckbox(dayIndex) {
+    const sel = document.querySelector(`.dest-select[data-day="${dayIndex}"]`);
+    const thumbImg = document.getElementById(`thumb_${dayIndex}`);
+    const extraCheck = document.querySelector(`.extra-airport-check[data-day="${dayIndex}"]`);
+    const val = sel.value;
+
+    if (extraCheck && extraCheck.checked) {
+        setCombinedImage(val, thumbImg);
+    } else {
+        thumbImg.src = destImages[val] || destImages['default'];
+    }
+}
+
+function setCombinedImage(destVal, thumbImg) {
+    if (destVal === "cairo") {
+        thumbImg.src = destImages['airport_cairo'];
+    } else if (destVal === "fayyoum") {
+        thumbImg.src = destImages['airport_fayyoum'];
+    } else if (destVal === "alexandria") {
+        thumbImg.src = destImages['airport_alex'];
+    } else {
+        thumbImg.src = destImages['default'];
+    }
+}
+
+function calculateTotal() {
+    const selects = document.querySelectorAll('.dest-select');
+    const extraChecks = document.querySelectorAll('.extra-airport-check');
+    const noLuggageChecks = document.querySelectorAll('.no-luggage-check');
+    let totalDestPrice = 0;
+    let totalDays = selects.length;
+    const groupSize = parseInt(groupSizeSelect.value) || 1;
+    let nonTransportDays = 0; 
+    let standardAirportPrice = (groupSize >= 4) ? 470 : 175;
+    // Diturunkan sebanyak RM 70 untuk pengiraan jumlah
+    let discountedAirportPrice = standardAirportPrice - 70;
+
+    selects.forEach((sel) => {
+        const selectedOption = sel.options[sel.selectedIndex];
+        totalDestPrice += parseInt(selectedOption.getAttribute('data-price')) || 0;
+        
+        if (sel.value !== "airport_transfer") {
+            nonTransportDays++;
+        }
+    });
+
+    extraChecks.forEach(chk => {
+        if (chk.checked) {
+            totalDestPrice += discountedAirportPrice; 
+        }
+    });
+
+    let totalNoLuggageExtra = 0;
+    noLuggageChecks.forEach(chk => {
+        const dayIndex = chk.getAttribute('data-day');
+        const sel = document.querySelector(`.dest-select[data-day="${dayIndex}"]`);
+        if (chk.checked && sel && sel.value !== "airport_transfer") {
+            totalNoLuggageExtra += 30;
+        }
+    });
+
+    const noLuggageRow = document.getElementById('sumNoLuggageRow');
+    if (totalNoLuggageExtra > 0) {
+        noLuggageRow.style.display = 'flex';
+        document.getElementById('sumNoLuggagePrice').innerText = `RM ${totalNoLuggageExtra}`;
+    } else {
+        noLuggageRow.style.display = 'none';
+    }
+
+    let groupExtra = 0;
+    const groupRow = document.getElementById('sumGroupRow');
+    
+    if (groupSize >= 4 && nonTransportDays > 0) {
+        groupExtra = 12 * nonTransportDays;
+        groupRow.style.display = 'flex';
+        document.getElementById('sumGroupPrice').innerText = `RM ${groupExtra} (${nonTransportDays} hari)`;
+    } else {
+        groupRow.style.display = 'none';
+    }
+
+    let gizaExtra = 0;
+    const gizaRow = document.getElementById('sumGizaRow');
+    if (gizaCheck.checked && totalDays > 0) {
+        gizaExtra = 35 * totalDays;
+        gizaRow.style.display = 'flex';
+        document.getElementById('sumGizaPrice').innerText = `RM ${gizaExtra}`;
+    } else {
+        gizaRow.style.display = 'none';
+    }
+
+    let subTotal = totalDestPrice + groupExtra + gizaExtra + totalNoLuggageExtra;
+    
+    let discountAmount = subTotal * appliedDiscountRate;
+    let grandTotal = subTotal - discountAmount;
+
+    const promoRow = document.getElementById('sumPromoRow');
+    if (appliedDiscountRate > 0) {
+        if (promoRow) {
+            promoRow.style.display = 'flex';
+            document.getElementById('sumPromoPrice').innerText = `-RM ${discountAmount.toFixed(2)}`;
+        }
+    } else {
+        if (promoRow) promoRow.style.display = 'none';
+    }
+
+    document.getElementById('sumDuration').innerText = `${totalDays} Hari`;
+    document.getElementById('sumDestPrice').innerText = `RM ${totalDestPrice}`;
+    document.getElementById('sumTotal').innerText = `RM ${grandTotal.toFixed(2)}`;
+}
+
+function sendWhatsApp(e) {
+    e.preventDefault();
+
+    const name = document.getElementById('customerName').value.trim();
+    const groupSize = groupSizeSelect.value;
+    const startVal = document.getElementById('startDate').value;
+    const endVal = document.getElementById('endDate').value;
+    const startTime = document.getElementById('startTime').value;
+    const endTime = document.getElementById('endTime').value;
+    const isGiza = gizaCheck.checked;
+    const numGroupSize = parseInt(groupSize) || 1;
+
+    if (!name || !startVal || !endVal) {
+        alert("Sila lengkapkan Nama Penuh dan Julat Tarikh terlebih dahulu.");
+        document.getElementById('customerName').focus();
+        return;
+    }
+
+    const selects = document.querySelectorAll('.dest-select');
+    if (selects.length === 0) {
+        alert("Sila pilih tarikh lawatan terlebih dahulu.");
+        return;
+    }
+
+    function formatDateMY(dateString) {
+        if (!dateString) return "";
+        const parts = dateString.split("-");
+        return `${parts[2]}-${parts[1]}-${parts[0]}`;
+    }
+
+    const formattedStart = formatDateMY(startVal);
+    const formattedEnd = formatDateMY(endVal);
+
+    let itineraryText = "";
+    let grandTotal = 0;
+    let totalDays = selects.length;
+    let standardAirportPrice = (numGroupSize >= 4) ? 470 : 175;
+    let discountedAirportPrice = standardAirportPrice - 70;
+
+    selects.forEach((sel, index) => {
+        const selectedOption = sel.options[sel.selectedIndex];
+        let basePrice = parseInt(selectedOption.getAttribute('data-price')) || 0;
+        let dayTotal = basePrice;
+        
+        let destName = "";
+        let detailsList = [];
+
+        if (sel.value === "cairo") {
+            destName = "Kaherah";
+        } else if (sel.value === "fayyoum") {
+            destName = "Fayyoum";
+        } else if (sel.value === "alexandria") {
+            destName = "Alexandria";
+        } else if (sel.value === "airport_transfer") {
+            destName = "Pakej Airport Transfer Sahaja";
+        }
+
+        // Kumpul caj tambahan secara ringkas
+        if (sel.value !== "airport_transfer") {
+            if (numGroupSize >= 4) {
+                dayTotal += 12;
+                detailsList.push("Kumpulan (RM12)");
+            }
+
+            const extraChk = document.querySelector(`.extra-airport-check[data-day="${index}"]`);
+            if (extraChk && extraChk.checked) {
+                dayTotal += discountedAirportPrice;
+                detailsList.push(`Airport Transfer (RM${discountedAirportPrice})`);
+            }
+
+            const noLuggageChk = document.querySelector(`.no-luggage-check[data-day="${index}"]`);
+            if (noLuggageChk && noLuggageChk.checked) {
+                dayTotal += 30;
+                detailsList.push("Airport tanpa bagasi (RM30)");
+            }
+        }
+
+        if (isGiza) {
+            dayTotal += 35;
+            detailsList.push("Giza (RM35)");
+        }
+
+        // Kira diskaun 15% per hari jika kod promo aktif
+        let dayDiscount = 0;
+        let finalDayTotal = dayTotal;
+        if (appliedDiscountRate > 0) {
+            dayDiscount = dayTotal * 0.15;
+            finalDayTotal = dayTotal - dayDiscount;
+        }
+
+        grandTotal += finalDayTotal;
+
+        // Tarikh harian
+        let currentDate = new Date(startVal);
+        currentDate.setDate(currentDate.getDate() + index);
+        let day = String(currentDate.getDate()).padStart(2, '0');
+        let month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        let year = currentDate.getFullYear();
+        let dateStr = `${day}-${month}-${year}`;
+
+        // Paparan teks harian dengan sebut harga destinasi
+        itineraryText += `*Hari ${index + 1} (${dateStr})* - ${destName} (RM ${basePrice})\n`;
+        
+        if (detailsList.length > 0) {
+            itineraryText += `• Tambahan: ${detailsList.join(" | ")}\n`;
+        }
+
+        if (appliedDiscountRate > 0) {
+            itineraryText += `• Asal: RM ${dayTotal} | Diskaun 15% (${activePromoName})\n`;
+            itineraryText += `• *Jumlah: RM ${finalDayTotal.toFixed(2)}*\n\n`;
+        } else {
+            itineraryText += `• *Jumlah: RM ${dayTotal}*\n\n`;
+        }
+    });
+
+    let message = `Assalamualaikum, saya ingin membuat tempahan jurupandu pelancong di Mesir.\n\n` +
+                  `*Maklumat Pelanggan:*\n` +
+                  `- Nama: ${name}\n` +
+                  `- Saiz Kumpulan: ${groupSize} Orang\n` +
+                  `- Tempoh: ${formattedStart} hingga ${formattedEnd} (${totalDays} Hari)\n` +
+                  `- Masa: ${startTime} - ${endTime}\n` +
+                  `- Penginapan Giza: ${isGiza ? 'Ya (Caj RM35/hari)' : 'Tidak'}\n` +
+                  (activePromoName ? `- Kod Promo: *${activePromoName}* (Diskaun 15% per hari)\n` : '') + `\n` +
+                  `*Atur Cara & Kos Per Hari:*\n${itineraryText}` +
+                  `*Jumlah Keseluruhan Perlu Dibayar: RM ${grandTotal.toFixed(2)}*\n\n` +
+                  `Mohon pengesahan lanjut. Terima kasih!`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/601156758804?text=${encodedMessage}`;
+    window.open(whatsappUrl, '_blank');
+}
+
+
+
+
+
+
+</script>
+</body>
+</html>
