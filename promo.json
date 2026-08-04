@@ -1,5 +1,11 @@
 {
-  "validPromoCodes": ["MARU12", "TAQWA09", "NAJMI8", "MUS4", "BAIK"],
+  "validPromoCodes": {
+    "MARU12": 0.10,
+    "TAQWA09": 0.15,
+    "NAJMI8": 0.20,
+    "MUS4": 0.25,
+    "BAIK": 0.30
+  },
   "appliedDiscountRate": 0,
   "activePromoName": "",
   "pdfLink": "https://drive.google.com/file/d/1la5zbxlH5FfHJvjOuZCFlE2_ubWXjoCT/view?usp=drivesdk",
