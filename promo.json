@@ -1,25 +1,26 @@
 {
-    "validPromoCodes": {
-        "STUD4NT": 0.5,
-        "FARAWALA": 0.1,
-    },
-    "appliedDiscountRate": 0,
-    "activePromoName": "",
-    "pdfLink": "https://drive.google.com/file/d/1la5zbxlH5FfHJvjOuZCFlE2_ubWXjoCT/view?usp=drivesdk",
-    "whatsappNumber": "201550290431",
-    "prices": {
-        "cairo": 95,
-        "fayyoum": 105,
-        "alexandria": 115,
-        "airportTransferBase": 175,
-        "airportTransferGroup": 470,
-        "airportTransferDiscount": 70,
-        "noLuggageExtra": 30,
-        "groupExtraPerDay": 12,
-        "gizaExtraPerDay": 35
-    },
-    "exchangeRateInfo": {
-        "rate": "1 MYR = 12.2 EGP",
-        "lastUpdated": "23-07-2026"
-    }
+  "validPromoCodes": {
+    "MARU12": 0.10,
+    "TAQWA09": 0.15,
+    "NAJMI8": 0.20,
+    "FARAWALA": 0.10,
+    "STUD4NT": 0.50
+  },
+  "appliedDiscountRate": 0,
+  "activePromoName": "",
+  "pdfLink": "https://drive.google.com/file/d/1la5zbxlH5FfHJvjOuZCFlE2_ubWXjoCT/view?usp=drivesdk",
+  "whatsappNumber": "201550290431",
+  "exchangeRate": "1 RM = 10.50 EGP",
+  "rateDate": "07 Ogos 2026",
+  "prices": {
+    "cairo": 95,
+    "fayyoum": 105,
+    "alexandria": 115,
+    "airportTransferBase": 175,
+    "airportTransferGroup": 480,
+    "airportTransferDiscount": 70,
+    "noLuggageExtra": 30,
+    "groupExtraPerDay": 12,
+    "gizaExtraPerDay": 35
+  }
 }
